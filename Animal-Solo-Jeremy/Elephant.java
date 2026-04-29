@@ -11,10 +11,9 @@ public class Elephant extends Actor
     GreenfootSound elephantSound = new GreenfootSound("ElevenLabs_Low_growl_of_an_elephant,_conveying_strength_and_presence.mp3");
     GreenfootImage[] idleRight = new GreenfootImage[5];
     GreenfootImage[] idleLeft = new GreenfootImage[5];
-    int frame = 0;
+    int imageIndex = 0;
     int frameDelay = 0;
     String facing = "right";
-    SimpleTimer animationTimer = new SimpleTimer();
 
     /**
      * Constructor - The code that gets run one time when object is created
@@ -32,10 +31,6 @@ public class Elephant extends Actor
             idleLeft[i].mirrorHorizontally();
             idleLeft[i].scale(100, 100);
         }
-        animationTimer.mark();
-        
-        
-        
         setImage(idleRight[0]);
     }
 
@@ -51,30 +46,27 @@ public class Elephant extends Actor
         }
 
         eat();
-        animate();
+        animateElephant();
     }
 
-    public void animate()
+    public void animateElephant()
     {
         frameDelay++;
-        if(frameDelay >= 5)
+        if(frameDelay < 20)
         {
-            frameDelay = 0;
-            if(animationTimer.millisElapsed()<1000)
-            {
-                return;
-            }
-            
-            if(facing.equals("right"))
-            {
-                setImage(idleRight[frame]);
-                frame = (frame + 1) % idleRight.length;
-            }
-            else
-            {
-                setImage(idleLeft[frame]);
-                frame = (frame + 1) % idleLeft.length;
-            }
+            return;
+        }
+        frameDelay = 0;
+
+        if(facing.equals("right"))
+        {
+            setImage(idleRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % idleRight.length;
+        }
+        else
+        {
+            setImage(idleLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % idleLeft.length;
         }
     }
 
