@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Elephant extends Actor
 {
     GreenfootSound elephantSound = new GreenfootSound("ElevenLabs_Low_growl_of_an_elephant,_conveying_strength_and_presence.mp3");
-    GreenfootImage[] idle = new GreenfootImage[8];
+    GreenfootImage[] idle = new GreenfootImage[5];
     int frame = 0;
     int frameDelay = 0;
     /**
@@ -19,7 +19,7 @@ public class Elephant extends Actor
     {
         for(int i = 0; i < idle.length; i++)
         {
-            idle[i] = new GreenfootImage("images/elephant_idle/idle_" + i + ".png");
+            idle[i] = new GreenfootImage("elephant_" + (i+1) + ".png");
         }
         setImage(idle[0]);
     }
