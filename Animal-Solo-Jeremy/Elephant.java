@@ -8,18 +8,22 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Elephant extends Actor
 {
-    GreenfootSound elephantSound = new GreenfootSound("Elephant sound");
-    GreenfootImage idle = new GreenfootImage("elephant_1");
+    GreenfootSound elephantSound = new GreenfootSound("ElevenLabs_Low_growl_of_an_elephant,_conveying_strength_and_presence.mp3");
+    GreenfootImage[] idle = new GreenfootImage[8];
+    int frame = 0;
+    int frameDelay = 0;
+    /**
+     * Constructor - The code that gets run one time when object is created
+     */
     public Elephant()
     {
-        //for(int i=0; i<idle.length;i++)
+        for(int i = 0; i < idle.length; i++)
         {
-            //idle[i] = new GreenfootImage["elephant_1"+i];
-            
+            idle[i] = new GreenfootImage("images/elephant_idle/idle_" + i + ".png");
         }
-        //setImage(idle[0]);
+        setImage(idle[0]);
     }
-    public void act() 
+    public void act()
     {
         if(Greenfoot.isKeyDown("left")){
             move(-5);
@@ -27,10 +31,19 @@ public class Elephant extends Actor
         else if(Greenfoot.isKeyDown("right")){
             move(5);
         }
-        
+
         eat();
-        
-        
+        animate();
+    }
+    public void animate()
+    {
+        frameDelay++;
+        if(frameDelay >= 5)
+        {
+            frameDelay = 0;
+            frame = (frame + 1) % idle.length;
+            setImage(idle[frame]);
+        }
     }
     public void eat()
     {
