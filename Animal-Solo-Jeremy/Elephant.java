@@ -14,6 +14,7 @@ public class Elephant extends Actor
     int frame = 0;
     int frameDelay = 0;
     String facing = "right";
+    SimpleTimer animationTimer = new SimpleTimer();
 
     /**
      * Constructor - The code that gets run one time when object is created
@@ -31,6 +32,10 @@ public class Elephant extends Actor
             idleLeft[i].mirrorHorizontally();
             idleLeft[i].scale(100, 100);
         }
+        animationTimer.mark();
+        
+        
+        
         setImage(idleRight[0]);
     }
 
@@ -55,14 +60,20 @@ public class Elephant extends Actor
         if(frameDelay >= 5)
         {
             frameDelay = 0;
-            frame = (frame + 1) % idleRight.length;
+            if(animationTimer.millisElapsed()<1000)
+            {
+                return;
+            }
+            
             if(facing.equals("right"))
             {
                 setImage(idleRight[frame]);
+                frame = (frame + 1) % idleRight.length;
             }
             else
             {
                 setImage(idleLeft[frame]);
+                frame = (frame + 1) % idleLeft.length;
             }
         }
     }
